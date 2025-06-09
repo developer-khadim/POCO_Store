@@ -15,7 +15,7 @@ import Product8_hovering from '../assets/Products/f6_2.webp'
 
 const ProductCard = ({ product }) => {
   return (
-    <div className="rounded-lg overflow-hidden w-full shadow-lg hover:shadow-2xl transition-all duration-500 group relative">
+    <div className="rounded-lg overflow-hidden w-full shadow-lg hover:shadow-2xl transition-all duration-500 group relative select-none ">
       {/* New Badge */}
       {product.isNew && (
         <div className="absolute top-3 left-3 z-10">
@@ -52,10 +52,10 @@ const ProductCard = ({ product }) => {
         <div className="absolute bottom-0 right-0 left-0">
           {/* View Product Button - Slides up on hover */}
           <div className="transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out delay-100">
-            <div className="w-full py-3 px-4 bg-gradient-to-t from-black/80 to-transparent backdrop-blur-sm">
+            <div className="w-full py-3 px-4 bg-white backdrop-blur-sm">
               <Link
                 to={product.link || "#"}
-                className="block w-full text-center py-2 bg-transparent border-2 border-white text-white font-semibold hover:bg-amber-400 hover:text-black hover:border-amber-400 transition-all duration-300 rounded-md transform hover:scale-105"
+                className="block w-full text-center py-1 bg-transparent border border-black text-black font-semibold hover:bg-amber-400 hover:text-black hover:border-amber-400 transition-all duration-300  transform "
               >
                 VIEW PRODUCT
               </Link>

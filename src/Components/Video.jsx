@@ -27,7 +27,7 @@ const Video = () => {
 
   return (
     <>
-      <section className='bg-black w-full h-[70vh] p-6'>
+      <section className='bg-black w-full h-[60vh] '>
         <h1 className='text-center text-white font-semibold text-3xl hover:text-yellow-500 duration-300 cursor-pointer mb-8'>Videos</h1>
         <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 mx-auto gap-6 px-[230px]'>
           {
@@ -53,7 +53,7 @@ const Video = () => {
               </div>
             ))
           }
-          <hr className='border-t border-white my-10 col-span-full h-[20px]' />
+          <hr className='border-t border-white my-4 col-span-full h-[20px]' />
           </div>
       </section>
     </>

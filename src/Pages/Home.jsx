@@ -1,4 +1,4 @@
-import React from 'react'
+  import React from 'react'
 import HeroCrosal from '../Components/HeroCrosal'
 import BestSellers from '../Components/BestSellers'
 import Video from '../Components/Video'

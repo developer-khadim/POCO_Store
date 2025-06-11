@@ -3,6 +3,8 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Poco_F7 from "../assets/Poco_F7.jpg";
 import Poco_F7_Ultra from '../assets/Poco_F7_Ultra.jpg';
+import poco_banner from '../assets/Products/poco_banner.webp';
+import poco_banner2 from '../assets/Products/POCO_X7_Pro.webp';
 
 const HeroCrosal = () => {
     const images = [Poco_F7, Poco_F7_Ultra];
@@ -42,13 +44,13 @@ const HeroCrosal = () => {
         const timer = setTimeout(() => {
             setIsTransitioning(false);
         }, 400); 
-        return () => clearTimeout(timer);
+        return () => clearTimeout(timer)
     }, [currentIndex]);
 
     return (
         <div className="relative w-full h-[90%] overflow-hidden select-none">
             {/* Navigation Links */}
-            <div className="absolute w-full flex justify-end pr-64 items-center py-10 gap-10 bg-transparent text-white z-10">
+            <div className="absolute w-full hidden md:flex overflow-x-auto md:justify-end md:pr-4 lg:pr-64 items-center py-4 md:py-7 gap-4 md:gap-10 bg-transparent text-white z-10">
                 <Link className="font-bold hover:text-amber-300 duration-400 cursor-pointer" to="/poco-f7-pro-ultra">POCO F7 PRO ULTRA</Link>
                 <Link className="font-bold hover:text-amber-300 duration-400 cursor-pointer ml-6" to="/poco-f7-pro">POCO F7 PRO</Link>
                 <Link className="font-bold hover:text-amber-300 duration-400 cursor-pointer ml-6" to="/poco-f7-pro-5g">POCO F7 PRO 5G</Link>
@@ -80,7 +82,7 @@ const HeroCrosal = () => {
             <button
                 onClick={prevSlide}
                 disabled={isTransitioning}
-                className="absolute left-4 top-1/2 hover:text-amber-300 transform -translate-y-1/2 text-white cursor-pointer transition-colors duration-200 hover:scale-110 disabled:opacity-50"
+                className="absolute hidden md:flex left-4 top-1/2 hover:text-amber-300 transform -translate-y-1/2 text-white cursor-pointer transition-colors duration-200 hover:scale-110 disabled:opacity-50"
             >
                 <ChevronLeft size={50} />
             </button>
@@ -89,7 +91,7 @@ const HeroCrosal = () => {
             <button
                 onClick={nextSlide}
                 disabled={isTransitioning}
-                className="absolute right-4 top-1/2 hover:text-amber-300 transform -translate-y-1/2 text-white cursor-pointer transition-colors duration-200 hover:scale-110 disabled:opacity-50"
+                className="absolute hidden md:flex right-4 top-1/2 hover:text-amber-300 transform -translate-y-1/2 text-white cursor-pointer transition-colors duration-200 hover:scale-110 disabled:opacity-50"
             >
                 <ChevronRight size={50} />
             </button>

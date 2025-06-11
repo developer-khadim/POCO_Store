@@ -1,43 +1,3 @@
-// import { ArrowRight, Facebook, Instagram } from "lucide-react";
-// import React from "react";
-
-// const Footer = () => {
-//   return (
-//     <footer className="w-full h-28 flex items-center justify-center bg-[#161718] text-white ">
-//       <div className="container max-w-[1460px] mx-auto flex justify-between items-center ">
-//         <div className="space-y-2 md:flex items-center justify-center hidden md:blank ">
-//           <div  className="space-x-28">
-//             <h1 className=" text-2xl font-bold">LET'S STAY IN TOUCH</h1>
-//           <p className="text-gray-400 text-sm">Get updates on sales specials and more</p>
-//           </div>
-//           <div className="flex items-center ">
-//             <input
-//               type="email"
-//               placeholder="Enter Email Address"
-//               className="p-2 bg-gray-800 border border-yellow-500 text-white focus:outline-none"
-//             />
-//             <button className="p-[9px] bg-yellow-500 ">
-//               <ArrowRight />
-//             </button>
-//           </div>
-//         </div>
-//         <div className="space-y-2 text-right flex items-center justify-center gap-28 " > 
-//           <div className="text-left" >
-//             <h1 className="text-3xl font-bold">FOLLOW POCO</h1>
-//           <p className="text-gray-400 text-sm">We want to hear from you!</p>
-//           </div>
-//           <div className="flex justify-end space-x-4">
-//             <Facebook />
-//             <Instagram />
-//           </div>
-//         </div>
-//       </div>
-//     </footer>
-//   );
-// };
-
-// export default Footer;
-
 import React from "react"; 
 import { ArrowRight, Facebook, Instagram } from "lucide-react";
 import { MapPin, Phone, Mail } from "lucide-react";
@@ -46,28 +6,28 @@ const Footer = () => {
   return (
    <footer>
     {/* Upper Footer */}
-     <section className="w-full py-8 md:h-28 flex items-center justify-center bg-[#161718] text-white">
+     <section className="w-full py-8 md:h-[100px] flex items-center justify-center bg-[#161718] text-white">
       <div className="container max-w-[1460px] mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
         <div className="space-y-4 md:flex flex-col hidden md:blank md:flex-row items-center justify-center w-full md:w-auto">
-          <div className="text-center md:text-left md:space-x-28">
-            <h1 className="text-xl md:text-2xl font-bold">LET'S STAY IN TOUCH</h1>
-            <p className="text-gray-400 text-sm mt-2">Get updates on sales specials and more</p>
-          </div>
-          <div className="flex items-center mt-4 md:mt-0">
+            <span className="text-[12px] text-gray-400 pr-20 text-center" >
+            <h1 className="text-xl md:text-xl font-bold text-white ">LET'S STAY IN TOUCH</h1>
+            Get updates on sales specials and more
+            </span>
+          <div className="flex items-center ">
             <input
               type="email"
               placeholder="Enter Email Address"
-              className="p-2 w-full md:w-auto bg-gray-800 border border-yellow-500 text-white focus:outline-none"
+              className="py-[10px]  px-4 w-full md:w-[12vw] bg-black border border-yellow-400 text-white focus:outline-none"
             />
-            <button className="p-[9px] bg-yellow-500">
+            <button className="p-[11px] bg-yellow-400">
               <ArrowRight />
             </button>
           </div>
         </div>
         <div className="space-y-4 w-full md:w-auto flex flex-col md:flex-row items-center justify-center md:gap-28">
           <div className="text-center md:text-left">
-            <h1 className="text-2xl md:text-3xl font-bold">FOLLOW POCO</h1>
-            <p className="text-gray-400 text-sm mt-2">We want to hear from you!</p>
+            <h1 className="text-2xl md:text-xl font-bold">FOLLOW POCO</h1>
+            <p className="text-gray-400 text-[12px] ">We want to hear from you!</p>
           </div>
           <div className="flex justify-center md:justify-end space-x-4 mt-4 md:mt-0">
             <Facebook />

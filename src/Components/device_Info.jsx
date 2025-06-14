@@ -80,7 +80,8 @@ const DeviceInfo = () => {
   ];
 
   return (
-    <section className=" container max-w-[1460px] mx-auto mt-10 px-4">
+    <div className="w-full" >
+    <section className=" container max-w-[1460px] mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
         {/* Image section */}
         <div className="lg:sticky lg:top-4 h-fit">
@@ -110,7 +111,7 @@ const DeviceInfo = () => {
             </div>
 
             {/* Thumbnail Navigation */}
-            <div className="bg-white p-4">
+            <div className="bg-white ">
               <div className="flex justify-left space-x-3">
                 {productImages.map((image, index) => (
                   <button
@@ -135,73 +136,69 @@ const DeviceInfo = () => {
         </div>
 
         {/* Info section */}
-        <div className="space-y-6 space-x-60">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-800 mb-3">
-              POCO F7 Ultra (16GB - 512GB)
-            </h1>
-            <p className="text-xl font-bold text-black mb-6">
-              Rs.259,999.00
-            </p>
+        <div className=" space-x-60">
+          <h1 className="text-2xl font-bold text-gray-800 mb-3">
+            POCO F7 Ultra (16GB - 512GB)
+          </h1>
+          <p className="text-sm font-bold text-black mb-6">Rs.259,999.00</p>
 
-            {/* /* Color Selection */}
-            <div className="mb-6">
-              <div className="flex items-center gap-4 mb-3">
-                <span className="font-medium text-gray-700">Color:</span>
-                <span className="text-gray-500">{selectedColor}</span>
-              </div>
-              <div className="flex gap-3">
-                {colors.map((color) => (
-                  <button
-                    key={color.name}
-                    onClick={() => setSelectedColor(color.name)}
-                    className={`w-12 h-12 transition-all duration-200 ${
-                      color.value
-                    } ${
-                      selectedColor === color.name
-                        ? "scale-110"
-                        : "opacity-75 hover:opacity-100"
-                    }`}
-                    title={color.name}
-                  />
-                ))}
-              </div>
+          {/* /* Color Selection */}
+          <div className="mb-6">
+            <div className="flex items-center gap-4 mb-3">
+              <span className="font-medium text-black">Color:</span>
+              <span className="text-gray-500">{selectedColor}</span>
+            </div>
+            <div className="flex gap-3">
+              {colors.map((color) => (
+                <button
+                  key={color.name}
+                  onClick={() => setSelectedColor(color.name)}
+                  className={`w-12 h-12 transition-all duration-200 ${
+                    color.value
+                  } ${
+                    selectedColor === color.name
+                      ? "scale-110"
+                      : "opacity-75 hover:opacity-100"
+                  }`}
+                  title={color.name}
+                />
+              ))}
             </div>
 
             {/* Quantity */}
             <div className="mb-6">
-              <span className="font-medium text-gray-700 block mb-3">
+              <span className="font-medium text-black block mb-2 mt-5">
                 Quantity:
               </span>
-              <div className="flex items-center border border-gray-300 w-fit">
+              <div className="flex items-center border border-gray-300 w-[94px]">
                 <button
                   onClick={decrementQuantity}
-                  className="p-2 hover:bg-gray-100 transition-colors duration-200"
+                  className="p-2 hover:bg-gray-100 text-sm transition-colors duration-200"
                 >
-                  <Minus size={16} />
+                  <Minus size={10} />
                 </button>
-                <span className="px-4 py-2 min-w-[60px] text-center font-medium">
+                <span className="px-4 py-2 min-w-[40px] text-center font-medium">
                   {quantity}
                 </span>
                 <button
                   onClick={incrementQuantity}
                   className="p-2 hover:bg-gray-100 transition-colors duration-200"
                 >
-                  <Plus size={16} />
+                  <Plus size={10} />
                 </button>
               </div>
             </div>
 
             {/* Action Buttons */}
-            <div className="space-y-4 ">
-              <button className="w-full bg-black text-white py-3 px-5 font-bold text-sm cursor-pointer hover:bg-amber-300 transition-all duration-200">
+            <div className="space-y-2 ">
+              <button className="w-full bg-black text-white py-4 px-5 font-bold text-sm cursor-pointer hover:bg-amber-300 transition-all duration-200">
                 SOLD OUT
               </button>
               <div className="flex gap-4">
-                <button className="flex-1 border-2 border-black text-black py-2 px-5  font-bold hover:text-amber-300 transition-colors duration-200 cursor-pointer">
+                <button className="flex-1 border-2 border-black text-black py-3 px-6 text-sm font-medium hover:text-amber-300 transition-colors duration-200 cursor-pointer">
                   UNAVAILABLE
                 </button>
-                <button className="flex-1 border-2 border-black text-black py-2 px-5 font-medium hover:text-amber-300 transition-colors duration-200  cursor-pointer">
+                <button className="flex-1 border-2 border-black text-black py-3 px-6 text-sm font-medium hover:text-amber-300 transition-colors duration-200 cursor-pointer">
                   ADD TO WISHLIST
                 </button>
               </div>
@@ -209,57 +206,52 @@ const DeviceInfo = () => {
           </div>
 
           {/* Description */}
-          <div className="">
-            <h2 className="text-sm text-gray-900 mb-4">
-              DESCRIPTION
-            </h2>
 
-            {/* Key Features */}
-            <div className="mb-8">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                Key Features:
-              </h3>
+          <h2 className="text-sm text-gray-600 mb-4">DESCRIPTION</h2>
 
-              <div className=" mb-6">
-                <p className="text-red-600 text-sm">
-                  <span className="font-bold">For COD Orders:</span> Due to
-                  Courier restrictions, any Amount Exceeding PKR 100,000 Must be
-                  Paid in Advance
-                </p>
-              </div>
+          {/* Key Features */}
+          <div className="mb-8">
+            <h3 className="text-2xl font-bold text-black mb-2">
+              Key Features:
+            </h3>
+              <p className="text-red-600 text-sm w-[32vw] mb-4">
+                <span className="font-bold">For COD Orders:</span> Due to
+                Courier restrictions, any Amount Exceeding PKR 100,000 Must be
+                Paid in Advance
+              </p>
+       
 
-              <div className="space-y-3 text-gray-700">
-                {keyFeatures.map((feature, index) => (
-                  <div key={index} className="flex flex-wrap">
-                    <span className="font-semibold min-w-[100px]">
-                      {feature.label}:
-                    </span>
-                    <span>{feature.value}</span>
-                  </div>
-                ))}
-              </div>
+            <div className=" text-gray-700 w-[32vw]">
+              {keyFeatures.map((feature, index) => (
+                <div key={index} className="flex flex-wrap">
+                  <span className="font-bold text-black text-sm ">
+                    {feature.label}: <span className="font-normal">{feature.value}</span>
+                  </span>
+                  
+                </div>
+              ))}
             </div>
+          </div>
 
-            {/* General Features */}
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                General Features:
-              </h3>
-              <div className="space-y-3 text-gray-700">
-                {generalFeatures.map((feature, index) => (
-                  <div key={index} className="flex flex-wrap">
-                    <span className="font-semibold min-w-[100px]">
-                      {feature.label}:
-                    </span>
-                    <span>{feature.value}</span>
-                  </div>
-                ))}
-              </div>
+          {/* General Features */}
+          <div className="" >
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              General Features:
+            </h3>
+            <div className=" text-gray-700 w-[32vw] ">
+              {generalFeatures.map((feature, index) => (
+                <div key={index} className="flex  flex-wrap ">
+                  <span className="font-semibold text-black">
+                    {feature.label}: <span className="font-normal" >{feature.value}</span>
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
     </section>
+    </div>
   );
 };
 

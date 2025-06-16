@@ -116,7 +116,6 @@ const ProductCard = ({ product }) => {
         </div>
       )}
 
-      {/* Product Image Container */}
       <div className="relative aspect-[3/4] overflow-hidden">
         {/* Main Product Image */}
         <img

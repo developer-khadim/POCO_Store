@@ -1,11 +1,19 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom';
 import Davice_Info from '../Components/device_Info';
 import Suggestion from '../Components/Suggestion';
 
+
 const Product = () => {
+  const location = useLocation();
+  const productId = location.pathname.split('/').pop(); // Extract product ID from URL
+  console.log("Product ID:", productId); // For debugging purposes
+
   return (
     <div className='w-full bg-white py-8'>
       <div className='container max-w-[1460px] mx-auto '>
+        {/* Location Path */}
+        
         <Davice_Info />
         
         {/* Divider with text */}

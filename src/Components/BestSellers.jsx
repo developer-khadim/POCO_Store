@@ -3,20 +3,19 @@ import ProductCard from "./ProductCard";
 import { Products_Data } from "../Data/Products_Data";
 
 const BestSellers = () => {
-  // Get only the first 8 products for best sellers
   const bestSellers = Products_Data.slice(0, 8);
 
   return (
-    <section className="w-full min-h-screen bg-black py-0 md:py-20">
-      <div className="max-w-[75%] mx-auto">
+    <section className="w-full min-h-screen bg-black py-0 md:py-20  ">
+      <div className=" max-w-full  md:w-[75%]  mx-auto">
         <h1 className="text-white text-4xl font-bold text-center mb-16 transform transition-all duration-500 hover:text-amber-400">
           BEST SELLERS
         </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {bestSellers.map((product) => (
             <div 
-              key={product.id} 
+              key={product.id}
               className="transform transition-all duration-500 hover:-translate-y-2"
             >
               <ProductCard product={product} />

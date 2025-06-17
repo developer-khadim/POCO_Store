@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, Heart, Minus, Plus } from "lucide-react";
 import pocof7 from "../assets/Products/POCO_F7.webp";
+import { Products_Data } from "../Data/Products_Data";
 
 const DeviceInfo = () => {
   const [currentImage, setCurrentImage] = useState(0);
@@ -14,6 +15,7 @@ const DeviceInfo = () => {
       src: pocof7,
       alt: "POCO F7 Ultra Front View",
     },
+    
   ];
 
   const colors = [{ name: "Black", value: "bg-black" }];
@@ -190,9 +192,17 @@ const DeviceInfo = () => {
             </div>
 
             {/* Action Buttons */}
-            <div className="space-y-2 ">
-              <button className="w-full bg-black text-white py-4 px-5 font-bold text-sm cursor-pointer hover:bg-amber-300 transition-all duration-200">
-                SOLD OUT
+            <div className="space-y-2">
+              <button 
+                onClick={() => {
+                  // Add to cart logic here
+                  const cartCount = parseInt(localStorage.getItem('cartCount') || '0');
+                  localStorage.setItem('cartCount', (cartCount + 1).toString());
+                  window.dispatchEvent(new Event('storage'));
+                }}
+                className="w-full bg-black text-white py-4 px-5 font-bold text-sm cursor-pointer hover:bg-amber-300 transition-all duration-200"
+              >
+                ADD TO CART
               </button>
               <div className="flex gap-4">
                 <button className="flex-1 border-2 border-black text-black py-3 px-6 text-sm font-medium hover:text-amber-300 transition-colors duration-200 cursor-pointer">

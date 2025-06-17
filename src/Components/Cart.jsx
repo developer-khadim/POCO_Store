@@ -1,70 +1,59 @@
 import React, { useState, useEffect } from 'react';
+import { X } from 'lucide-react';
 
-const Cart = () => {
-  const [cartItems, setCartItems] = useState(() => {
-    const stored = localStorage.getItem("cartItems");
-    return stored ? JSON.parse(stored) : [];
-  });
-  const [cartCount, setCartCount] = useState(() => {
-    const stored = localStorage.getItem("cartCount");
-    return stored ? parseInt(stored, 10) : 0;
-  });
+const Cart = ({ isOpen, onClose }) => {
+  const [cartItems, setCartItems] = useState([]);
+  const [isAnimating, setIsAnimating] = useState(false);
 
-  // Listen for storage events (e.g. if cartCount or cartItems are updated elsewhere)
   useEffect(() => {
-    const handleStorage = (e) => {
-      if (e.key === "cartCount") {
-         setCartCount(parseInt(e.newValue, 10) || 0);
-      } else if (e.key === "cartItems") {
-         setCartItems(JSON.parse(e.newValue || "[]"));
-      }
-    };
-    window.addEventListener("storage", handleStorage);
-    return () => { window.removeEventListener("storage", handleStorage); };
-  }, []);
-
-  // (Demo) "Add to Cart" button increments cartCount and adds a dummy item (if not already present) to cartItems.
-  const addToCart = () => {
-    const newCount = cartCount + 1;
-    setCartCount(newCount);
-    localStorage.setItem("cartCount", newCount.toString());
-    const dummyItem = { id: 1, name: "Dummy Item", price: 10, quantity: 1 };
-    const newItems = cartItems.some(item => item.id === dummyItem.id) ? cartItems : [...cartItems, dummyItem];
-    setCartItems(newItems);
-    localStorage.setItem("cartItems", JSON.stringify(newItems));
-  };
-
-  // (Demo) "Remove" button decrements cartCount (if > 0) and removes the dummy item (if present) from cartItems.
-  const removeFromCart = () => {
-    if (cartCount > 0) {
-      const newCount = cartCount - 1;
-      setCartCount(newCount);
-      localStorage.setItem("cartCount", newCount.toString());
-      const newItems = cartItems.filter(item => item.id !== 1);
-      setCartItems(newItems);
-      localStorage.setItem("cartItems", JSON.stringify(newItems));
+    if (isOpen) {
+      setIsAnimating(true);
+      document.body.style.overflow = 'hidden';
+    } else {
+      const timer = setTimeout(() => {
+        setIsAnimating(false);
+        document.body.style.overflow = 'unset';
+      }, 300);
+      return () => clearTimeout(timer);
     }
-  };
+  }, [isOpen]);
 
-  // (Demo) "Clear Cart" button resets cartCount and cartItems.
-  const clearCart = () => {
-    setCartCount(0);
-    localStorage.setItem("cartCount", "0");
-    setCartItems([]);
-    localStorage.setItem("cartItems", "[]");
-  };
+  if (!isOpen && !isAnimating) return null;
 
   return (
-    <div className="p-4 bg-gray-100 rounded shadow">
-      <h1 className="text-2xl font-bold mb-4">Cart</h1>
-      <p>Cart Count (from localStorage): {cartCount}</p>
-      <p>Cart Items (from localStorage): {JSON.stringify(cartItems)}</p>
-      <div className="mt-4 flex gap-2">
-        <button onClick={addToCart} className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Add to Cart</button>
-        <button onClick={removeFromCart} className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Remove</button>
-        <button onClick={clearCart} className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">Clear Cart</button>
+    <>
+      {/* Backdrop */}
+      <div 
+        className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 ${
+          isOpen ? 'opacity-100' : 'opacity-0'
+        }`}
+        onClick={onClose}
+      />
+
+      {/* Cart Panel */}
+      <div 
+        className={`fixed right-0 top-0 h-full w-full md:w-[350px] bg-white z-50 transition-transform duration-300 ease-in-out ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+        style={{ boxShadow: 'none', borderRadius: 0 }}
+      >
+        {/* Cart Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-300">
+          <span className="uppercase tracking-wide text-[15px] text-gray-500 font-normal pl-0 select-none" style={{letterSpacing: '0.04em'}}>
+            MY SHOPPING BAG ( {cartItems.length} )
+          </span>
+          <button 
+            onClick={onClose}
+            className="p-1 text-gray-500 hover:bg-gray-100 rounded-full transition-colors"
+            aria-label="Close cart"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+        {/* Cart Content (empty) */}
+        <div className="h-full bg-white"></div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -1,19 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import Logo from "../assets/POCO.png";
 import { Link } from "react-router-dom";
-import { ShoppingBag, Search, Menu } from "lucide-react";
+import { Search, Menu, ShoppingBag } from "lucide-react";
+import Login from "../Pages/Login";
 import Cart from "./Cart";
-import Login from "../Pages/Login"; // Import the Login component
 
 const Nav = () => {
-  const [cartCount, setCartCount] = useState(() => {
-    const stored = localStorage.getItem("cartCount");
-    return stored ? parseInt(stored, 10) : 2;
-  });
-
-  const [isCartOpen, setIsCartOpen] = useState(false);
   // Add new state for login modal
   const [showLogin, setShowLogin] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
   const loginTimeoutRef = useRef(null);
 
   const handleMouseEnter = () => {
@@ -26,23 +22,13 @@ const Nav = () => {
   const handleMouseLeave = () => {
     loginTimeoutRef.current = setTimeout(() => {
       setShowLogin(false);
-    }, 300); // 300ms delay before hiding
+    }, 300); 
   };
 
-  // For now, we're just using localStorage.
   useEffect(() => {
-    const handleStorage = (e) => {
-      if (e.key === "cartCount") {
-        setCartCount(parseInt(e.newValue, 10) || 0);
-      }
-    };
-    window.addEventListener("storage", handleStorage);
-    return () => {
-      window.removeEventListener("storage", handleStorage);
-      if (loginTimeoutRef.current) {
-        clearTimeout(loginTimeoutRef.current);
-      }
-    };
+    if (loginTimeoutRef.current) {
+      clearTimeout(loginTimeoutRef.current);
+    }
   }, []);
 
   return (
@@ -74,38 +60,20 @@ const Nav = () => {
             </Link>
           </div>
 
-          <div
-            className="relative inline-block"
-            onClick={() => setIsCartOpen(!isCartOpen)}
-          >
-            <div className="relative group cursor-pointer">
-              <ShoppingBag className="w-8 h-8 text-white group-hover:text-amber-300" />
-              {cartCount > -1 && (
-                <span className="absolute -top-2 -right-2 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white rounded-full group-hover:bg-amber-300 group-hover:text-black ">
-                  {cartCount}
-                </span>
-              )}
-            </div>
+          {/* Cart Icon */}
+          <div className="relative group cursor-pointer" onClick={() => setIsCartOpen(true)}>
+            <ShoppingBag className="w-8 h-8 text-white group-hover:text-amber-300 transition-colors" />
+            <span className={`absolute -top-2 -right-2 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white rounded-full transition-colors ${
+              cartCount > 0 ? 'bg-amber-500 group-hover:bg-amber-300 group-hover:text-amber-300' : 'bg-gray-500'
+            }`}>
+              {cartCount}
+            </span>
           </div>
         </div>
       </div>
-      {/* Cart Modal (rendered if isCartOpen is true) – slides in from the right */}
-      {isCartOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-end bg-black bg-opacity-50"
-          onClick={() => setIsCartOpen(false)}
-        >
-          <div
-            className="bg-white p-4 rounded shadow w-80 h-full transform transition-transform duration-300 ease-in-out"
-            style={{
-              transform: isCartOpen ? "translateX(0)" : "translateX(100%)",
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Cart />
-          </div>
-        </div>
-      )}
+
+      {/* Cart Component */}
+      <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </section>
   );
 };

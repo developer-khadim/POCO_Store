@@ -1,15 +1,30 @@
+
 import React, { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Poco_F7 from "../assets/Poco_F7.jpg";
 import Poco_F7_Ultra from '../assets/Poco_F7_Ultra.jpg';
-import poco_banner from '../assets/Products/poco_banner.webp';
-import poco_banner2 from '../assets/Products/POCO_X7_Pro.webp';
+import Mobile_poco_banner from '../assets/Products/poco_banner.webp';
+import Mobile_poco_banner2 from '../assets/Products/POCO_X7_Pro.webp';
 
 const HeroCrosal = () => {
-    const images = [Poco_F7, Poco_F7_Ultra];
+    const desktopImages = [Poco_F7, Poco_F7_Ultra];
+    const mobileImages = [Mobile_poco_banner, Mobile_poco_banner2];
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isTransitioning, setIsTransitioning] = useState(false);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    const images = isMobile ? mobileImages : desktopImages;
+    const imageClasses = isMobile ? 'w-full h-[36vh] object-top' : 'w-full h-[90%]';
 
     const nextSlide = () => {
         if (isTransitioning) return;
@@ -38,27 +53,26 @@ const HeroCrosal = () => {
             nextSlide();
         }, 4000);
         return () => clearInterval(time);
-    }, []);
+    }, [nextSlide]); 
 
     useEffect(() => {
         const timer = setTimeout(() => {
             setIsTransitioning(false);
         }, 400); 
-        return () => clearTimeout(timer)
+        return () => clearTimeout(timer);
     }, [currentIndex]);
 
     return (
         <div className="relative w-full h-[90%] overflow-hidden select-none">
-            {/* Navigation Links */}
             <div className="absolute w-full hidden md:flex overflow-x-auto md:justify-end md:pr-4 lg:pr-64 items-center py-4 md:py-7 gap-4 md:gap-10 bg-transparent text-white z-10">
-               <Link className="font-semibold hover:text-amber-300 duration-400 cursor-pointer" to="/product">POCO F7 PRO ULTRA</Link>
-                       <Link className="font-semibold hover:text-amber-300 duration-400 cursor-pointer ml-6" to="/poco-f7-pro">POCO F7 PRO</Link>
-                       <Link className="font-semibold hover:text-amber-300 duration-400 cursor-pointer ml-6" to="/poco-f7-pro-5g">POCO F7 PRO 5G</Link>
-                       <Link className="font-semibold hover:text-amber-300 duration-400 cursor-pointer ml-6" to="/poco-c75">POCO C75</Link>
-                       <Link className="font-semibold hover:text-amber-300 duration-400 cursor-pointer ml-6" to="/poco-m6-pro">POCO M6 PRO</Link>
-                       <Link className="font-semibold hover:text-amber-300 duration-400 cursor-pointer ml-6" to="/poco-f6-pro">POCO F6 PRO</Link>
-                       <Link className="font-semibold hover:text-amber-300 duration-400 cursor-pointer ml-6" to="/poco-f6">POCO F6</Link>
-                       <Link className="font-semibold hover:text-amber-300 duration-400 cursor-pointer ml-6" to="/poco-x6-pro-5g">POCO X6 PRO 5G</Link>
+                <Link className="font-semibold hover:text-amber-300 duration-400 cursor-pointer" to="/product">POCO F7 PRO ULTRA</Link>
+                <Link className="font-semibold hover:text-amber-300 duration-400 cursor-pointer ml-6" to="/poco-f7-pro">POCO F7 PRO</Link>
+                <Link className="font-semibold hover:text-amber-300 duration-400 cursor-pointer ml-6" to="/poco-f7-pro-5g">POCO F7 PRO 5G</Link>
+                <Link className="font-semibold hover:text-amber-300 duration-400 cursor-pointer ml-6" to="/poco-c75">POCO C75</Link>
+                <Link className="font-semibold hover:text-amber-300 duration-400 cursor-pointer ml-6" to="/poco-m6-pro">POCO M6 PRO</Link>
+                <Link className="font-semibold hover:text-amber-300 duration-400 cursor-pointer ml-6" to="/poco-f6-pro">POCO F6 PRO</Link>
+                <Link className="font-semibold hover:text-amber-300 duration-400 cursor-pointer ml-6" to="/poco-f6">POCO F6</Link>
+                <Link className="font-semibold hover:text-amber-300 duration-400 cursor-pointer ml-6" to="/poco-x6-pro-5g">POCO X6 PRO 5G</Link>
             </div>
 
             {/* Image Container with Smooth Sliding */}
@@ -73,12 +87,12 @@ const HeroCrosal = () => {
                         key={index}
                         src={image}
                         alt={`Slide ${index + 1}`}
-                        className="w-full h-full object-cover flex-shrink-0"
+                        className={`${imageClasses} object-cover flex-shrink-0`}
                     />
                 ))}
             </div>
 
-            {/* Left Arrow */}
+            {/* Left Arrow - Hidden on Mobile */}
             <button
                 onClick={prevSlide}
                 disabled={isTransitioning}
@@ -87,7 +101,7 @@ const HeroCrosal = () => {
                 <ChevronLeft size={50} />
             </button>
 
-            {/* Right Arrow */}
+            {/* Right Arrow - Hidden on Mobile */}
             <button
                 onClick={nextSlide}
                 disabled={isTransitioning}
@@ -96,7 +110,7 @@ const HeroCrosal = () => {
                 <ChevronRight size={50} />
             </button>
 
-            {/* Dots */}
+            {/* Dots - Always visible */}
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
                 {images.map((_, index) => (
                     <button
@@ -114,3 +128,4 @@ const HeroCrosal = () => {
 };
 
 export default HeroCrosal;
+

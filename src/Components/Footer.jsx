@@ -1,6 +1,6 @@
-import React from "react"; 
-import { ArrowRight, Facebook, Instagram } from "lucide-react";
-import { MapPin, Phone, Mail } from "lucide-react";
+import React from "react";
+import { Link } from "react-router-dom"; 
+import { ArrowRight, Facebook, Instagram, User, MapPin, Ellipsis, Phone, Mail, House } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -8,7 +8,7 @@ const Footer = () => {
     {/* Upper Footer */}
      <section className="w-full py-8 md:h-[100px] flex items-center justify-center bg-[#161718] text-white">
       <div className="container max-w-[1460px] mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
-        <div className="space-y-4 md:flex flex-col hidden md:blank md:flex-row items-center justify-center w-full md:w-auto">
+        <div className="space-y-4 md:flex flex-col hidden md:flex-row items-center justify-center w-full md:w-auto">
             <span className="text-[12px] text-gray-400 pr-20 text-center" >
             <h1 className="text-xl md:text-xl font-bold text-white ">LET'S STAY IN TOUCH</h1>
             Get updates on sales specials and more
@@ -24,7 +24,7 @@ const Footer = () => {
             </button>
           </div>
         </div>
-        <div className="space-y-4 w-full md:w-auto flex flex-col md:flex-row items-center justify-center md:gap-28">
+        <div className="space-y-2 w-full md:w-auto flex gap-10 items-center justify-center md:gap-28">
           <div className="text-center md:text-left">
             <h1 className="text-2xl md:text-xl font-bold">FOLLOW POCO</h1>
             <p className="text-gray-400 text-[12px] ">We want to hear from you!</p>
@@ -36,6 +36,7 @@ const Footer = () => {
         </div>
       </div>
     </section>
+    
     {/* Bottom Footer */}
     <section className="w-full bg-black hidden sm:block text-white">
       {/* Main Footer Content */}
@@ -129,6 +130,28 @@ const Footer = () => {
           </span>
         </div>
       </div>
+    </section>
+    
+    {/* Mobile Nav */}
+    <section className="md:hidden block fixed bottom-0 left-0 w-full z-50 ">
+       <div className="flex items-center justify-evenly bg-black text-yellow-300 py-3">
+  <Link to="/" className="flex flex-col items-center font-bold">
+    <House className="w-7 h-7" />
+    <span className="text-xs">Home</span>
+  </Link>
+  <Link to="/register" className="flex flex-col items-center font-bold">
+    <User className="w-7 h-7" />
+    <span className="text-xs">Account</span>
+  </Link>
+  <Link to="/location" className="flex flex-col items-center font-bold">
+    <MapPin className="w-7 h-7" />
+    <span className="text-xs">Location</span>
+  </Link>
+  <Link to="/more" className="flex flex-col items-center font-bold">
+    <Ellipsis className="w-7 h-7" />
+    <span className="text-xs">More</span>
+  </Link>
+</div>
     </section>
    </footer>
   );

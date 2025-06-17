@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Logo from "../assets/POCO.png";
 import { Link } from "react-router-dom";
-import { Search, Menu, ShoppingBag } from "lucide-react";
+import { Search, Menu, ShoppingBag ,User , House } from "lucide-react";
 import Login from "../Pages/Login";
 import Cart from "./Cart";
 

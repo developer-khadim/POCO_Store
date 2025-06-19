@@ -11,7 +11,7 @@ const BestSellers = () => {
         <h1 className="text-white text-4xl font-bold text-center mb-16 transform transition-all duration-500 hover:text-amber-400">
           BEST SELLERS
         </h1>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-2 md:gap-6">
           {bestSellers.map((product) => (
             <div 
               key={product.id}

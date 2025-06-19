@@ -1,159 +1,204 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; 
 import { ArrowRight, Facebook, Instagram, User, MapPin, Ellipsis, Phone, Mail, House } from "lucide-react";
 
-const Footer = () => {
-  return (
-   <footer>
-    {/* Upper Footer */}
-     <section className="w-full py-8 md:h-[100px] flex items-center justify-center bg-[#161718] text-white">
-      <div className="container max-w-[1460px] mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
-        <div className="space-y-4 md:flex flex-col hidden md:flex-row items-center justify-center w-full md:w-auto">
-            <span className="text-[12px] text-gray-400 pr-20 text-center" >
-            <h1 className="text-xl md:text-xl font-bold text-white ">LET'S STAY IN TOUCH</h1>
-            Get updates on sales specials and more
-            </span>
-          <div className="flex items-center ">
-            <input
-              type="email"
-              placeholder="Enter Email Address"
-              className="py-[10px]  px-4 w-full md:w-[12vw] bg-black border border-yellow-400 text-white focus:outline-none"
-            />
-            <button className="p-[11px] bg-yellow-400">
-              <ArrowRight />
-            </button>
-          </div>
+//Mobile Footer Component
+const MobileFooter = () => {
+  return(
+    <section className="w-screen px-10 h-32 bg-black text-white " >
+      <div className="flex items-center justify-between">
+        <div className="text-center  ">
+          <h1 className="font-bold ">FOLLOW POCO</h1>
+          <p className="text-sm text-gray-400 ">We want to hear from you!</p>
         </div>
-        <div className="space-y-2 w-full md:w-auto flex gap-10 items-center justify-center md:gap-28">
-          <div className="text-center md:text-left">
-            <h1 className="text-2xl md:text-xl font-bold">FOLLOW POCO</h1>
-            <p className="text-gray-400 text-[12px] ">We want to hear from you!</p>
-          </div>
-          <div className="flex justify-center md:justify-end space-x-4 mt-4 md:mt-0">
-            <Facebook />
-            <Instagram />
-          </div>
+        <div className="flex justify-center items-center  space-x-4">
+          <Facebook className="w-5 h-5 md:w-6 md:h-6 text-gray-400 cursor-pointer hover:text-yellow-400 transition-colors" />
+          <Instagram className="w-5 h-5 md:w-6 md:h-6 text-gray-300 cursor-pointer hover:text-yellow-400 transition-colors" />
         </div>
       </div>
     </section>
-    
-    {/* Bottom Footer */}
-    <section className="w-full bg-black hidden sm:block text-white">
-      {/* Main Footer Content */}
-      <div className="container max-w-[1460px] mx-auto px-4 py-8 md:py-12">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-6 lg:gap-12">
+  )
+}
+
+// Hook to detect mobile device
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIfMobile = () => {
+      // Check screen width (you can adjust the breakpoint as needed)
+      const screenWidth = window.innerWidth <= 768;
+      
+      // Check user agent for mobile devices
+      const userAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      );
+      
+      setIsMobile(screenWidth || userAgent);
+    };
+
+    // Check on initial load
+    checkIfMobile();
+
+    // Add event listener for window resize
+    window.addEventListener('resize', checkIfMobile);
+
+    // Cleanup event listener
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
+
+  return isMobile;
+};
+
+const DesktopFooter = () => {
+  return (
+    <footer>
+      {/* Upper Footer */}
+      <section className="w-full py-6 md:py-8 lg:h-[100px] flex items-center justify-center bg-[#161718] text-white">
+        <div className="container max-w-[1460px] mx-auto px-4 flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-8">
+          {/* Newsletter Section */}
+          <div className="w-full lg:w-auto order-2 lg:order-1 md:block hidden">
+            <div className="flex flex-col md:flex-row items-center justify-center lg:justify-start gap-4 md:gap-6">
+              <div className="text-center w-[500px] md:text-left">
+                <h1 className="text-lg md:text-xl font-bold text-white mb-1">LET'S STAY IN TOUCH</h1>
+                <span className="text-xs md:text-sm text-gray-400">
+                  Get updates on sales specials and more
+                </span>
+              </div>
+              <div className="flex items-center w-full max-w-sm md:max-w-none">
+                <input
+                  type="email"
+                  placeholder="Enter Email Address"
+                  className="py-2 md:py-[10px] px-3 md:px-4 w-full md:w-[200px] lg:w-[12vw] bg-black border border-yellow-400 text-white text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                />
+                <button className="p-2 md:p-[11px] bg-yellow-400 hover:bg-yellow-500 transition-colors">
+                  <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
+                </button>
+              </div>
+            </div>
+          </div>
           
-          {/* Latest Phones */}
-          <div className="space-y-4 col-span-2 sm:col-span-1">
-            <h3 className="text-base md:text-lg font-semibold text-white mb-4 md:mb-6">LATEST PHONES</h3>
-            <ul className="space-y-2 md:space-y-3">
-              <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-sm">POCO X7 PRO 5G</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-sm">POCO PAD</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-sm">POCO F6</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-sm">POCO F6 PRO</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-sm">POCO X6 PRO 5G</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-sm">POCO M6 PRO</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-sm">POCO C65</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-sm">POCO X5 PRO 5G</a></li>
-            </ul>
-          </div>
-
-          {/* Support */}
-          <div className="space-y-4">
-            <h3 className="text-base md:text-lg font-semibold text-white mb-4 md:mb-6">SUPPORT</h3>
-            <ul className="space-y-2 md:space-y-3">
-              <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-sm">CONTACT US</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-sm">WARRANTY</a></li>
-            </ul>
-          </div>
-
-          {/* About Us */}
-          <div className="space-y-4">
-            <h3 className="text-base md:text-lg font-semibold text-white mb-4 md:mb-6">ABOUT US</h3>
-            <ul className="space-y-2 md:space-y-3">
-              <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-sm">TERMS & CONDITIONS</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-sm">REFUND & RETURN POLICY</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-sm">PRIVACY POLICY</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-sm">POCO BLOG</a></li>
-            </ul>
-          </div>
-
-          {/* Let Us Help You */}
-          <div className="space-y-4">
-            <h3 className="text-base md:text-lg font-semibold text-white mb-4 md:mb-6">LET US HELP YOU</h3>
-            <ul className="space-y-2 md:space-y-3">
-              <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-sm">PRODUCT AUTHENTICATION</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-sm">FAQS</a></li>
-            </ul>
-          </div>
-
-          {/* Follow Poco */}
-          <div className="space-y-4 col-span-2 sm:col-span-3 md:col-span-1">
-            <h3 className="text-base md:text-lg font-semibold text-white mb-4 md:mb-6">FOLLOW POCO</h3>
-            <div className="space-y-3 md:space-y-4">
-              <div className="flex items-start space-x-3">
-                <MapPin className="w-4 h-4 text-gray-400 mt-1 flex-shrink-0" />
-                <div className="text-xs md:text-sm text-gray-400">
-                  <p className="font-medium text-white">Head Office: Smartlink Technologies</p>
-                  <p>Address: 2-K, Commercial Area, Block K,</p>
-                  <p>Model Town, Lahore</p>
-                </div>
+          {/* Social Media Section */}
+          <div className="w-full lg:w-auto order-1 lg:order-2 pr-10">
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-end gap-4 sm:gap-6 lg:gap-8">
+              <div className="text-center lg:text-right">
+                <h1 className="text-lg md:text-xl font-bold mb-1">FOLLOW POCO</h1>
+                <p className="text-gray-400 text-xs md:text-sm">We want to hear from you!</p>
               </div>
-              
-              <div className="flex items-center space-x-3">
-                <Phone className="w-4 h-4 text-gray-400 flex-shrink-0" />
-                <a href="tel:03-111-111-050" className="text-xs md:text-sm text-gray-400 hover:text-amber-300 transition-colors">
-                  03-111-111-050
-                </a>
-              </div>
-              
-              <div className="flex items-center space-x-3">
-                <Mail className="w-4 h-4 text-gray-400 flex-shrink-0" />
-                <a href="mailto:info@poco.pk" className="text-xs md:text-sm text-gray-400 hover:text-amber-300 transition-colors">
-                  info@poco.pk
-                </a>
+              <div className="flex justify-center space-x-4">
+                <Facebook className="w-5 h-5 md:w-6 md:h-6 cursor-pointer hover:text-yellow-400 transition-colors" />
+                <Instagram className="w-5 h-5 md:w-6 md:h-6 cursor-pointer hover:text-yellow-400 transition-colors" />
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Copyright Section */}
-      <hr className="border-gray-800" />
-      <div className="container max-w-[1460px] mx-auto px-4 py-6 md:py-8">
-        <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <p className="text-xs md:text-sm text-gray-400 text-center md:text-left">
-            Copyright © 2010 - 2025 Xiaomi. All Rights Reserved
-          </p>
-          <span className="text-xs md:text-sm text-gray-400 text-center md:text-right">
-            Cloned By Developer-Khadim
-          </span>
+      {/* Bottom Footer */}
+      <section className="w-full bg-black text-white ">
+        {/* Main Footer Content */}
+        <div className="container max-w-[1460px] mx-auto px-4 py-8 md:py-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-7 gap-6 lg:gap-8 xl:gap-12">
+            
+            {/* Latest Phones */}
+            <div className="space-y-4 sm:col-span-1 lg:col-span-2 xl:col-span-2">
+              <h3 className="text-sm md:text-base lg:text-lg font-semibold text-white mb-3 md:mb-4 lg:mb-6">LATEST PHONES</h3>
+              <ul className="space-y-2 md:space-y-3">
+                <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-xs md:text-sm block">POCO X7 PRO 5G</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-xs md:text-sm block">POCO PAD</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-xs md:text-sm block">POCO F6</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-xs md:text-sm block">POCO F6 PRO</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-xs md:text-sm block">POCO X6 PRO 5G</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-xs md:text-sm block">POCO M6 PRO</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-xs md:text-sm block">POCO C65</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-xs md:text-sm block">POCO X5 PRO 5G</a></li>
+              </ul>
+            </div>
+
+            {/* Support */}
+            <div className="space-y-4">
+              <h3 className="text-sm md:text-base lg:text-lg font-semibold text-white mb-3 md:mb-4 lg:mb-6">SUPPORT</h3>
+              <ul className="space-y-2 md:space-y-3">
+                <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-xs md:text-sm block">CONTACT US</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-xs md:text-sm block">WARRANTY</a></li>
+              </ul>
+            </div>
+
+            {/* About Us */}
+            <div className="space-y-4">
+              <h3 className="text-sm md:text-base lg:text-lg font-semibold text-white mb-3 md:mb-4 lg:mb-6">ABOUT US</h3>
+              <ul className="space-y-2 md:space-y-3">
+                <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-xs md:text-sm block">TERMS & CONDITIONS</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-xs md:text-sm block">REFUND & RETURN POLICY</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-xs md:text-sm block">PRIVACY POLICY</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-xs md:text-sm block">POCO BLOG</a></li>
+              </ul>
+            </div>
+
+            {/* Let Us Help You */}
+            <div className="space-y-4">
+              <h3 className="text-sm md:text-base lg:text-lg font-semibold text-white mb-3 md:mb-4 lg:mb-6">LET US HELP YOU</h3>
+              <ul className="space-y-2 md:space-y-3">
+                <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-xs md:text-sm block">PRODUCT AUTHENTICATION</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-amber-300 transition-colors text-xs md:text-sm block">FAQS</a></li>
+              </ul>
+            </div>
+
+            {/* Follow Poco */}
+            <div className="space-y-4 sm:col-span-2 md:col-span-3 lg:col-span-1 xl:col-span-2">
+              <h3 className="text-sm md:text-base lg:text-lg font-semibold text-white mb-3 md:mb-4 lg:mb-6">FOLLOW POCO</h3>
+              <div className="space-y-3 md:space-y-4">
+                <div className="flex items-start space-x-3">
+                  <MapPin className="w-4 h-4 text-gray-400 mt-1 flex-shrink-0" />
+                  <div className="text-xs md:text-sm text-gray-400">
+                    <p className="font-medium text-white mb-1">Head Office: Smartlink Technologies</p>
+                    <p>Address: 2-K, Commercial Area, Block K,</p>
+                    <p>Model Town, Lahore</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center space-x-3">
+                  <Phone className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                  <a href="tel:03-111-111-050" className="text-xs md:text-sm text-gray-400 hover:text-amber-300 transition-colors">
+                    03-111-111-050
+                  </a>
+                </div>
+                
+                <div className="flex items-center space-x-3">
+                  <Mail className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                  <a href="mailto:info@poco.pk" className="text-xs md:text-sm text-gray-400 hover:text-amber-300 transition-colors break-all">
+                    info@poco.pk
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
-    
-    {/* Mobile Nav */}
-    <section className="md:hidden block fixed bottom-0 left-0 w-full z-50 ">
-       <div className="flex items-center justify-evenly bg-black text-yellow-300 py-3">
-  <Link to="/" className="flex flex-col items-center font-bold">
-    <House className="w-7 h-7" />
-    <span className="text-xs">Home</span>
-  </Link>
-  <Link to="/register" className="flex flex-col items-center font-bold">
-    <User className="w-7 h-7" />
-    <span className="text-xs">Account</span>
-  </Link>
-  <Link to="/location" className="flex flex-col items-center font-bold">
-    <MapPin className="w-7 h-7" />
-    <span className="text-xs">Location</span>
-  </Link>
-  <Link to="/more" className="flex flex-col items-center font-bold">
-    <Ellipsis className="w-7 h-7" />
-    <span className="text-xs">More</span>
-  </Link>
-</div>
-    </section>
-   </footer>
+
+        {/* Copyright Section */}
+        <hr className="border-gray-800" />
+        <div className="container max-w-[1460px] mx-auto px-4 py-4 md:py-6 lg:py-8  ">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0 text-center md:text-left">
+            <p className="text-xs md:text-sm text-gray-400">
+              Copyright © 2010 - 2025 Xiaomi. All Rights Reserved
+            </p>
+            <span className="text-xs md:text-sm text-gray-400">
+              Cloned By Developer-Khadim
+            </span>
+          </div>
+        </div>
+      </section>
+    </footer>
+  );
+};
+
+const Footer = () => {
+  const isMobile = useIsMobile();
+
+  return (
+    <>
+      {isMobile ? <MobileFooter /> : <DesktopFooter />}
+    </>
   );
 };
 

@@ -9,7 +9,7 @@ const Suggestion = () => {
     const width = window.innerWidth;
     if (width < 640) return 1; // Mobile
     if (width < 1024) return 2; // Tablet
-    return 4; // Desktop
+    return 4;
   };
 
   const [productsToShow, setProductsToShow] = useState(getProductsToShow());

@@ -150,8 +150,8 @@ const Video = () => {
         </Modal>
 
         {/* Divider */}
-        <div className='mt-4 sm:mt-8 md:mt-10'>
-          <hr className='border-t border-2 border-white opacity-70' />
+        <div className='my-4 sm:mt-8 md:mt-10'>
+          <hr className='border-t border-white opacity-70' />
         </div>
       </div>
     </section>

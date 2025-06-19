@@ -18,7 +18,7 @@ export const Products_Data = [
       name: "POCO F7 Ultra(16GB-512GB)",
       price: "Rs.259,999",
       isNew: true,
-      link: "/poco-f7-ultra",
+      link: "/product",
       category: "flagship",
       colors: {
         available: false

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ProductCard from "./ProductCard";
@@ -9,7 +8,7 @@ const Suggestion = () => {
     const width = window.innerWidth;
     if (width < 640) return 1; // Mobile
     if (width < 1024) return 2; // Tablet
-    return 4;
+    return 4; // Desktop
   };
 
   const [productsToShow, setProductsToShow] = useState(getProductsToShow());
@@ -19,32 +18,32 @@ const Suggestion = () => {
   useEffect(() => {
     const handleResize = () => {
       setProductsToShow(getProductsToShow());
-      setCurrentIndex(0);
+      setCurrentIndex(0); // reset on resize
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const maxIndex = Products_Data.length - productsToShow;
+
   const nextSlide = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-    const maxIndex = Products_Data.length - productsToShow;
     setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
   };
 
   const prevSlide = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-    const maxIndex = Products_Data.length - productsToShow;
     setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
   };
 
   useEffect(() => {
-    const time = setInterval(() => {
+    const interval = setInterval(() => {
       nextSlide();
     }, 4000);
-    return () => clearInterval(time);
-  }, [isTransitioning]);
+    return () => clearInterval(interval);
+  }, [currentIndex, productsToShow]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -54,33 +53,34 @@ const Suggestion = () => {
   }, [currentIndex]);
 
   return (
-    <section className="w-full relative overflow-hidden py-8 ">
-      <div className="max-w-[100%]  relative">
+    <section className="w-full relative overflow-hidden py-8">
+      <div className="max-w-[100%] relative">
         {/* Left Arrow */}
         <button
           onClick={prevSlide}
           disabled={isTransitioning}
-          className="absolute left-4 top-2/5 transform -translate-y-1/2 bg-black/20 hover:bg-yellow-300 text-gray-700 py-3  transition-all duration-200 hover:scale-110 z-10 disabled:opacity-50"
+          className="absolute left-4 top-2/5 transform -translate-y-1/2 bg-black/20 hover:bg-yellow-300 text-gray-700 py-3 transition-all duration-200 hover:scale-110 z-10 disabled:opacity-50"
           aria-label="Previous products"
         >
           <ChevronLeft size={28} />
         </button>
 
-        {/* Products Container with Overflow Hidden */}
+        {/* Products Container */}
         <div className="overflow-hidden mx-16">
-          {/* Products Slider */}
-          <div 
+          <div
             className="flex transition-transform duration-500 ease-in-out"
             style={{
-              transform: `translateX(-${(currentIndex * 100) / productsToShow}%)`,
-              width: `${(Products_Data.length * 100) / productsToShow}%`
+              transform: `translateX(-${(currentIndex * 100) / Products_Data.length}%)`,
+              width: `${(Products_Data.length * 100) / productsToShow}%`,
             }}
           >
-            {Products_Data.map((product, index) => (
+            {Products_Data.map((product) => (
               <div
                 key={product.id}
                 className="flex-shrink-0 px-3"
-                style={{ width: `${100 / Products_Data.length}%` }}
+                style={{
+                  width: `${100 / Products_Data.length}%`,
+                }}
               >
                 <div className="transform transition-all duration-300 hover:-translate-y-2 hover:scale-105">
                   <ProductCard product={product} />
@@ -94,7 +94,7 @@ const Suggestion = () => {
         <button
           onClick={nextSlide}
           disabled={isTransitioning}
-          className="absolute right-4 top-2/5 transform -translate-y-1/2 bg-black/20 hover:bg-yellow-300 text-gray-700  py-3  transition-all duration-200 hover:scale-110 z-10 disabled:opacity-50"
+          className="absolute right-4 top-2/5 transform -translate-y-1/2 bg-black/20 hover:bg-yellow-300 text-gray-700 py-3 transition-all duration-200 hover:scale-110 z-10 disabled:opacity-50"
           aria-label="Next products"
         >
           <ChevronRight size={28} />

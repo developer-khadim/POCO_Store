@@ -1,10 +1,10 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import Logo from "../assets/POCO.png";
 import { Link } from "react-router-dom";
 import { Search, ShoppingBag, User, House, MapPin, Ellipsis , Mail,Phone } from "lucide-react";
 import Login from "../Pages/Login";
 import Cart from "./Cart";
+import SearchComp from "./SearchComp";
 
 
 const Contact = () => {
@@ -35,6 +35,7 @@ const Contact = () => {
 const Nav = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const [showContact, setShowContact] = useState(false);
   const loginTimeoutRef = useRef(null);
@@ -82,7 +83,7 @@ const Nav = () => {
       {/* Top Nav */}
       <div className="bg-[#161718] flex py-3 md:py-0 justify-between items-center border-t-0 md:border-t-2 md:border-amber-300 px-4 xl:px-[230px]">
         <div className="md:hidden">
-          <Search className="w-5 h-5 text-white hover:text-amber-300 cursor-pointer" />
+          <Search className="w-5 h-5 text-white hover:text-amber-300 cursor-pointer" onClick={() => setIsSearchOpen(true)} />
         </div>
 
         <Link to="/" className="flex-1 md:flex-none flex justify-center md:justify-start">
@@ -110,6 +111,7 @@ const Nav = () => {
             </Link>
           </div>
 
+      
           {/* Cart Icon */}
           <div
             className="relative group cursor-pointer"
@@ -131,6 +133,8 @@ const Nav = () => {
 
       {/* Cart Component */}
       <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      {/* Search Component */}
+      <SearchComp isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
 
       {/* Mobile Nav */}
       <section className="md:hidden fixed bottom-0 left-0 w-full z-50">

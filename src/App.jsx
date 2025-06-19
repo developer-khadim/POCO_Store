@@ -6,6 +6,7 @@ import Login from './Pages/Login'
 import Layout from './Layout';
 import Product from './Pages/Product';
 import More from './Components/More';
+import Search from './Components/SearchComp';
 
 function App() {
   return (

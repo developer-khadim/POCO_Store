@@ -9,6 +9,7 @@ const Layout = () => {
   const isHomePage = location.pathname === '/';
   const isRegisterPage = location.pathname === '/register';
   const isLoginPage = location.pathname === '/login';
+  const isProductPage = location.pathname === '/product'
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -18,7 +19,8 @@ const Layout = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const shouldHideFooter = windowWidth <= 768 && (isRegisterPage || isLoginPage);
+  const shouldHideFooter = windowWidth <= 768 && (isRegisterPage || isLoginPage || isProductPage);
+
 
   return (
     <div className="layout">

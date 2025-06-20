@@ -508,8 +508,6 @@ const DeviceInfo = () => {
                   ))}
                 </div>
               </div>
-
-              {/* General Features */}
               <div>
                 <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">
                   General Features:

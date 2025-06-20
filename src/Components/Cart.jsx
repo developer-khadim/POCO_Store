@@ -17,7 +17,6 @@ const Cart = ({ isOpen, onClose }) => {
       return () => clearTimeout(timer);
     }
   }, [isOpen]);
-
   if (!isOpen && !isAnimating) return null;
 
   return (
@@ -50,7 +49,6 @@ const Cart = ({ isOpen, onClose }) => {
             <X className="w-5 h-5" />
           </button>
         </div>
-        {/* Cart Content (empty) */}
         <div className="h-full bg-white"></div>
       </div>
     </>

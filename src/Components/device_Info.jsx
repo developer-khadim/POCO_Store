@@ -437,6 +437,7 @@ const DeviceInfo = () => {
               </div>
             </div>
 
+            {/* Quantity */}
             <div>
               <span className="font-medium text-black block mb-2 text-sm sm:text-base">
                 Quantity:

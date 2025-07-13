@@ -1,26 +1,37 @@
 import React, { useState, useEffect, useRef } from "react";
 import Logo from "../assets/POCO.png";
 import { Link } from "react-router-dom";
-import { Search, ShoppingBag, User, House, MapPin, Ellipsis , Mail,Phone } from "lucide-react";
+import {
+  Search,
+  ShoppingBag,
+  User,
+  House,
+  MapPin,
+  Ellipsis,
+  Mail,
+  Phone,
+} from "lucide-react";
 import Login from "../Pages/Login";
 import Cart from "./Cart";
 import SearchComp from "./SearchComp";
+import Account from "../Pages/Account";
+import { useSelector } from "react-redux";
 
-
+// Contact Component
 const Contact = () => {
   return (
-    <div className="absolute w-[100vw]  inset-0  flex items-end bottom-20 -left-[222px] z-50">
-      <div className="bg-white p-6  shadow-2xl w-[100vw] ">
-        <div className="flex flex-col  gap-3">
-          <a 
-            href="mailto:info@poco.pk" 
+    <div className="absolute w-[100vw] inset-0 flex items-end bottom-20 -left-[222px] z-50">
+      <div className="bg-white p-6 shadow-2xl w-[100vw]">
+        <div className="flex flex-col gap-3">
+          <a
+            href="mailto:info@poco.pk"
             className="flex items-center justify-center gap-3 text-black bg-yellow-300 px-6 py-4 rounded-full hover:bg-yellow-400 transition-colors font-medium"
           >
             <Mail className="w-5 h-5" />
             <span>info@poco.pk</span>
           </a>
-          <a 
-            href="tel:03-111-111-050"  
+          <a
+            href="tel:03-111-111-050"
             className="flex items-center justify-center gap-3 text-black bg-yellow-300 px-6 py-4 rounded-full hover:bg-yellow-400 transition-colors font-medium"
           >
             <Phone className="w-5 h-5" />
@@ -32,6 +43,7 @@ const Contact = () => {
   );
 };
 
+// Nav Component
 const Nav = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -40,17 +52,22 @@ const Nav = () => {
   const [showContact, setShowContact] = useState(false);
   const loginTimeoutRef = useRef(null);
   const contactTimeoutRef = useRef(null);
+  const [showAccount, setShowAccount] = useState(false);
+
+  const user = useSelector((state) => state.auth.user);
 
   const handleMouseEnter = () => {
     if (loginTimeoutRef.current) {
       clearTimeout(loginTimeoutRef.current);
     }
     setShowLogin(true);
+    setShowAccount(true);
   };
 
   const handleMouseLeave = () => {
     loginTimeoutRef.current = setTimeout(() => {
       setShowLogin(false);
+      setShowAccount(false);
     }, 300);
   };
 
@@ -83,10 +100,16 @@ const Nav = () => {
       {/* Top Nav */}
       <div className="bg-[#161718] flex py-3 md:py-0 justify-between items-center border-t-0 md:border-t-2 md:border-amber-300 px-4 xl:px-[230px]">
         <div className="md:hidden">
-          <Search className="w-5 h-5 text-white hover:text-amber-300 cursor-pointer" onClick={() => setIsSearchOpen(true)} />
+          <Search
+            className="w-5 h-5 text-white hover:text-amber-300 cursor-pointer"
+            onClick={() => setIsSearchOpen(true)}
+          />
         </div>
 
-        <Link to="/" className="flex-1 md:flex-none flex justify-center md:justify-start">
+        <Link
+          to="/"
+          className="flex-1 md:flex-none flex justify-center md:justify-start"
+        >
           <img src={Logo} alt="POCO" className="h-9 md:h-auto" />
         </Link>
 
@@ -97,21 +120,29 @@ const Nav = () => {
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              <span className="hover:text-amber-300 duration-400 text-sm cursor-pointer">
-                SIGN IN
-              </span>
-              {showLogin && <Login />}
+              {user?.email ? (
+               <>
+               <span className="cursor-pointer font-bold" > MY ACCOUNT </span>
+                {showAccount && <Account />}
+                </>
+              ) : (
+                <>
+                  <span className="hover:text-amber-300 duration-400 text-sm cursor-pointer">
+                    SIGN IN
+                  </span>
+                  {showLogin && <Login />}
+                  <Link
+                    to="/register"
+                    className="hover:text-amber-300 duration-400 text-sm cursor-pointer"
+                  >
+                    REGISTER
+                  </Link>
+                </>
+              )}
             </div>
             |
-            <Link
-              to="/register"
-              className="hover:text-amber-300 duration-400 text-sm cursor-pointer"
-            >
-              REGISTER
-            </Link>
           </div>
 
-      
           {/* Cart Icon */}
           <div
             className="relative group cursor-pointer"
@@ -131,10 +162,12 @@ const Nav = () => {
         </div>
       </div>
 
-      {/* Cart Component */}
+      {/* Cart and Search Components */}
       <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
-      {/* Search Component */}
-      <SearchComp isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+      <SearchComp
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+      />
 
       {/* Mobile Nav */}
       <section className="md:hidden fixed bottom-0 left-0 w-full z-50">
@@ -143,14 +176,21 @@ const Nav = () => {
             <House className="w-7 h-7" />
             <span className="text-xs">Home</span>
           </Link>
-          <Link to="/login" className="flex flex-col items-center font-bold">
-            <User className="w-7 h-7" />
-            <span className="text-xs">Account</span>
-          </Link>
-          <div 
-          className="flex flex-col items-center font-bold relative"
-          onMouseEnter={handleContactMouseEnter}
-          onMouseLeave={handleContactMouseLeave}
+          {user?.email ? (
+            <Link to="/account" className="flex flex-col items-center font-bold">
+              <User className="w-7 h-7" />
+              <span className="text-xs">Account</span>
+            </Link>
+          ) : (
+            <Link to="/login" className="flex flex-col items-center font-bold">
+              <User className="w-7 h-7" />
+              <span className="text-xs">Account</span>
+            </Link>
+          )}
+          <div
+            className="flex flex-col items-center font-bold relative"
+            onMouseEnter={handleContactMouseEnter}
+            onMouseLeave={handleContactMouseLeave}
           >
             <MapPin className="w-7 h-7" />
             <span className="text-xs">Contact</span>
@@ -166,4 +206,4 @@ const Nav = () => {
   );
 };
 
-export default Nav
+export default Nav;
